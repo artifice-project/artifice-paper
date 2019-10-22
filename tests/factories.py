@@ -1,6 +1,6 @@
 import factory
 
-from webapp.models import db, Document
+from artifice.paper.models import db, Document
 
 
 class SQLAlchemyModelFactory(factory.Factory):

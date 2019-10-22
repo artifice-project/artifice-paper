@@ -3,8 +3,7 @@ import os
 from celery import Celery
 from flask import Flask
 
-from webapp.models import migrate, db
-from webapp.resources import api
+from artifice.paper.models import migrate, db
 
 
 config_variable_name = 'FLASK_CONFIG_PATH'
@@ -13,7 +12,7 @@ os.environ.setdefault(config_variable_name, default_config_path)
 
 
 def create_app(config_file=None, settings_override=None):
-    app = Flask(__name__)
+    app = Flask(__name__, instance_relative_config=True)
 
     if config_file:
         app.config.from_pyfile(config_file)
@@ -32,9 +31,14 @@ def create_app(config_file=None, settings_override=None):
 def init_app(app):
     db.init_app(app)
     migrate.init_app(app, db)
-    api.init_app(app)
-    # this is where the magic happens
-    # avoid contextual errors by including all modules atomically HERE
+    from artifice.paper.resources import api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/api')
+    from artifice.paper.routes.basic import basic_blueprint
+    app.register_blueprint(basic_blueprint, url_prefix='/')
+    from artifice.paper.routes.about import about_blueprint
+    app.register_blueprint(about_blueprint, url_prefix='/about')
+    from artifice.paper.routes.story import story_blueprint
+    app.register_blueprint(story_blueprint, url_prefix='/story')
 
 
 def setup_logging(app):

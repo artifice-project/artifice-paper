@@ -12,9 +12,9 @@ install:
   - pip install .
 services: postgresql
 before_script:
-  - psql -c 'create database flask_example_test;' -U postgres
-  - psql -c 'create database flask_example;' -U postgres
-script: webapp test
+  - psql -c 'create database flask_paper_test;' -U postgres
+  - psql -c 'create database flask_paper;' -U postgres
+script: artifice.paper test
 # after_success
 # after_failure:
 # after_script:

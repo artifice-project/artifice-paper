@@ -3,7 +3,7 @@ from flask import request
 from flask_restful import Resource
 from werkzeug.exceptions import HTTPException
 
-from webapp.models import Document
+from artifice.paper.models import Document
 
 
 class NotFound(HTTPException):

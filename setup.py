@@ -9,7 +9,7 @@ with open(osp.join(loc, 'requirements.txt')) as f:
 
 setup(
     version="0.0.3",
-    name="webapp",
+    name="artifice.paper",
     author="@minelminel",
     url="https://www.github.com/minelminel/flask-boilerplate",
     description="Simple web app for testing deployment tools",
@@ -18,7 +18,7 @@ setup(
     package_dir={"": "src"},
     entry_points={
         "console_scripts": [
-            "webapp=webapp.core.manage:manager.run",
+            "artifice.paper=artifice.paper.core.manage:manager.run",
         ]
     }
 )
